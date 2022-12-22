@@ -2,6 +2,7 @@
 <html lang="zxx">
 
 <head>
+    <base href="{{asset('/')}}">
     <meta charset="UTF-8">
     <meta name="description" content="codelean Template">
     <meta name="keywords" content="codelean, unica, creative, html">
