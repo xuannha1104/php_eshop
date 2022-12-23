@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+    <link rel="stylesheet" href="front/css/tailwind.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/themify-icons.css" type="text/css">
@@ -23,6 +24,7 @@
     <link rel="stylesheet" href="front/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/style.css" type="text/css">
+    <link rel="stylesheet" href="front/css/rating.css" type="text/css">
 </head>
 
 <body>
@@ -167,8 +169,8 @@
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
+                    <li class="{{(request()->segment(1)=='') ? 'active' : '' }}"><a href="./">Home</a></li>
+                    <li class="{{(request()->segment(1)=='shop') ? 'active' : '' }}"><a href="./shop">Shop</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
                             <li><a href="">Men's</a></li>
@@ -319,6 +321,7 @@
 <script src="front/js/jquery.dd.min.js"></script>
 <script src="front/js/jquery.slicknav.js"></script>
 <script src="front/js/owl.carousel.min.js"></script>
+<script src="front/js/owlcarousel2-filter.min.js"></script>
 <script src="front/js/main.js"></script>
 </body>
 

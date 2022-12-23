@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (\App\Services\Product\ProductService $productService) {
-//    return view('front.index');
-    return $productService->Find(1)->productCategory->get();
+Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']) ;
+
+Route::prefix('shop')->group(function (){
+    Route::get('',[\App\Http\Controllers\Front\ShopController::class,'index']);
+    Route::get('product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+    Route::post('product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
 });
-Route::get('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+
+
