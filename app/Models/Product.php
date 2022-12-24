@@ -27,7 +27,7 @@ class Product extends Model
         return $this -> hasMany(ProductDetail::class,'product_id','id');
     }
 
-    public  function productImages()
+    public function productImages()
     {
         return $this -> hasMany(ProductImage::Class,'product_id','id');
     }

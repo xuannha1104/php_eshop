@@ -22,4 +22,9 @@ Route::prefix('shop')->group(function (){
     Route::get('category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
 });
 
+Route::prefix('cart')->group(function (){
+    Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
+    Route::get('add/{id}',[\App\Http\Controllers\Front\CartController::class,'add']);
+});
+
 
