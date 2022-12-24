@@ -4,6 +4,7 @@ namespace App\Services\Product;
 
 use App\Repositories\Product\ProductRepository;
 use App\Services\BaseService;
+use Illuminate\Http\Request;
 
 class ProductService extends BaseService implements ProductServiceInterface
 {
@@ -41,8 +42,13 @@ class ProductService extends BaseService implements ProductServiceInterface
         ];
     }
 
-    public function getProductOnIndex()
+    public function getProductOnIndex(Request $request)
     {
-        return $this->repository->getProductOnIndex();
+        return $this->repository->getProductOnIndex($request);
+    }
+
+    public  function getProductByCategory(Request $request, String $categoryName)
+    {
+        return $this->repository->getProductByCategory($request,$categoryName);
     }
 }
