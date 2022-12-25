@@ -103,7 +103,7 @@
                         <li class="cart-icon">
                             <a href="./cart">
                                 <i class="icon_bag_alt">
-                                    <span>{{Cart::count()}}</span>
+                                    <span class="cart-count">{{Cart::count()}}</span>
                                 </i>
                             </a>
                             <div class="cart-hover">
@@ -111,7 +111,7 @@
                                     <table>
                                         <tbody>
                                         @foreach(Cart::content() as $cart)
-                                            <tr>
+                                            <tr data-rowId="{{$cart->rowId}}">
                                                 <td class="si-pic"><img src="front/img/products/{{$cart->options->images[0]->path}}" style="height: 70px;"></td>
                                                 <td class="si-text">
                                                     <div class="product-selected">
@@ -120,7 +120,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="si-close">
-                                                    <i class="ti-close"></i>
+                                                    <i onclick="removeCart('{{$cart->rowId}}')" class="ti-close"></i>
                                                 </td>
                                             </tr>
                                         @endforeach
