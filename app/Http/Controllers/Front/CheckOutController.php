@@ -8,6 +8,7 @@ use App\Services\Order\OrderService;
 use App\Services\OrderDetails\OrderDetailsService;
 use App\Services\PaypalPayment\PaypalPaymentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CheckOutController extends Controller
 {
@@ -58,7 +59,10 @@ class CheckOutController extends Controller
 
         if($request->payment_type == 'pay_later')
         {
-            // 3 - xoa gio hang
+            // send email
+            $this->sendMail($order,$this->cartService->total(),$this->cartService->total());
+
+            // clear carts
             $this->cartService->clearCartItems();
 
             // 4 - tra ve kq thong bao
@@ -69,6 +73,10 @@ class CheckOutController extends Controller
             $response = $this->paypalPaymentService->processTransaction($order->orderId);
             if (isset($response['id']) && $response['id'] != null)
             {
+                // send email
+                $this->sendMail($order,$this->cartService->total(),$this->cartService->total());
+
+                // clear carts
                 $this->cartService->clearCartItems();
 
                 // redirect to approve href
@@ -112,5 +120,16 @@ class CheckOutController extends Controller
         }
 
         return view('Paypal.cancel-transaction',compact('error'));
+    }
+
+    private function sendMail($order,$total,$subtotal)
+    {
+        $email_to = $order->email;
+        Mail::send('front.checkout.email',compact('order','total','subtotal'),
+                    function ($message) use ($email_to) {
+                    $message->from('xuannha.bkmec@gmail.com','eShop Test');
+                    $message->to($email_to,$email_to);
+                    $message->subject('Order Notification');
+                    });
     }
 }
