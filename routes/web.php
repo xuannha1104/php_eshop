@@ -38,4 +38,12 @@ Route::prefix('check-out')->group(function (){
     Route::get('cancel',[\App\Http\Controllers\Front\CheckOutController::class,'cancelTransaction'])->name('cancelPayment');
 });
 
+Route::prefix('account')->group(function (){
+    Route::get('register',[\App\Http\Controllers\Front\AccountController::class,'register'])->name('register');
+    Route::post('register',[\App\Http\Controllers\Front\AccountController::class,'checkRegister'])->name('checkRegister');
+    Route::get('login',[\App\Http\Controllers\Front\AccountController::class,'login'])->name('login');
+    Route::post('login',[\App\Http\Controllers\Front\AccountController::class,'checkLogin'])->name('checkLogin');
+    Route::get('logout',[\App\Http\Controllers\Front\AccountController::class,'logout'])->name('logout');
+});
+
 

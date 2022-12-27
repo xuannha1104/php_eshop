@@ -28,16 +28,34 @@
                     @if(Cart::count() > 0)
                         <div class="col-lg-6">
                             <div class="checkout-content">
-                                <a href="login.html" class="content-btn">Click Here To Login</a>
+                                <a href="{{route('login')}}" class="content-btn">Click Here To Login</a>
                             </div>
                             <h4>Billing Details</h4>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="firstname">First Name <span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("first_name"))
+                                            <ul>
+                                                @foreach ($errors->get('first_name') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="firstname" name="first_name">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="lastname">Last Name <span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("last_name"))
+                                            <ul>
+                                                @foreach ($errors->get('last_name') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="lastname" name="last_name">
                                 </div>
                                 <div class="col-lg-12">
@@ -46,10 +64,28 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="country">Country<span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("country"))
+                                            <ul>
+                                                @foreach ($errors->get('country') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="country" name="country">
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="address">Street Address<span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("street_address"))
+                                            <ul>
+                                                @foreach ($errors->get('street_address') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="address" name="street_address" class="street-first">
                                 </div>
                                 <div class="col-lg-12">
@@ -58,14 +94,42 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="town">Town / City<span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("town_city"))
+                                            <ul>
+                                                @foreach ($errors->get('town_city') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="town" name="town_city">
+
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="email">Email Address <span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("email"))
+                                            <ul>
+                                                @foreach ($errors->get('email') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="email" name="email">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="phone">Phone Number <span>*</span></label>
+                                    @if (count($errors) > 0)
+                                        @if($errors->has("phone"))
+                                            <ul>
+                                                @foreach ($errors->get('phone') as $message)
+                                                    <li style="color:red">{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    @endif
                                     <input type="text"id="phone" name="phone">
                                 </div>
                                 <div class="col-lg-12">

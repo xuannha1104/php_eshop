@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('company_name')->nullable();
             $table->string('country');
             $table->string('street_address');
-            $table->string('postcode_zip');
+            $table->string('postcode_zip')->nullable();
             $table->string('town_city');
             $table->string('email');
             $table->string('phone');

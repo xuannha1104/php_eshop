@@ -17,6 +17,8 @@ use App\Repositories\ProductCategoryRepository\ProductCategoryRepositoryInterfac
 use App\Repositories\ProductComment\ProductCommentRepository;
 use App\Repositories\ProductComment\ProductCommentRepositoryInterface;
 
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Blog\BlogService;
 use App\Services\Blog\BlogServiceInterface;
 use App\Services\Brand\BrandService;
@@ -35,6 +37,12 @@ use App\Services\ProductCategoryService\ProductCategoryService;
 use App\Services\ProductCategoryService\ProductCategoryServiceInterface;
 use App\Services\ProductComment\ProductCommentService;
 use App\Services\ProductComment\ProductCommentServiceInterface;
+use App\Services\User\UserService;
+use App\Services\User\UserServiceInterface;
+use App\Ultities\Validation\BaseForm;
+use App\Ultities\Validation\LoginForm;
+use App\Ultities\Validation\OrderForm;
+use App\Ultities\Validation\RegisterFrom;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -133,6 +141,31 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             PaypalPaymentServiceInterface::class,
             PaypalPaymentService::class
+        );
+
+        // Login Validation
+        $this->app->singleton(
+            BaseForm::class,LoginForm::class
+        );
+
+        // Register Validation
+        $this->app->singleton(
+            BaseForm::class,RegisterFrom::class
+        );
+        // Order Form Validation
+        $this->app->singleton(
+            BaseForm::class,OrderForm::class
+        );
+
+        // User
+        $this->app->singleton(
+            UserRepositoryInterface::class,
+            UserRepository::class
+        );
+
+        $this->app->singleton(
+            UserServiceInterface::class,
+            UserService::class
         );
     }
 

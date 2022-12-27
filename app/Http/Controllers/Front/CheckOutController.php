@@ -7,25 +7,32 @@ use App\Services\Cart\CartService;
 use App\Services\Order\OrderService;
 use App\Services\OrderDetails\OrderDetailsService;
 use App\Services\PaypalPayment\PaypalPaymentService;
+use App\Ultities\Validation\FormValidationException;
+use App\Ultities\Validation\OrderForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class CheckOutController extends Controller
 {
     private OrderService $orderService;
     private OrderDetailsService $orderDetailsService;
     private CartService $cartService;
+
     protected PaypalPaymentService $paypalPaymentService;
+    protected OrderForm $orderForm;
 
     public function __construct(OrderService $orderService,
                                 OrderDetailsService $orderDetailsService,
                                 CartService $cartService,
-                                PaypalPaymentService $paypalPaymentService)
+                                PaypalPaymentService $paypalPaymentService,
+                                OrderForm $orderForm)
     {
         $this->orderService = $orderService;
         $this->orderDetailsService = $orderDetailsService;
         $this->cartService = $cartService;
         $this->paypalPaymentService = $paypalPaymentService;
+        $this->orderForm = $orderForm;
     }
 
     public  function index()
@@ -38,6 +45,24 @@ class CheckOutController extends Controller
 
     public  function addOrder(Request $request)
     {
+        $formData = [
+            'first_name'         => $request->first_name,
+            'last_name'          => $request->last_name,
+            'country'            => $request->country,
+            'street_address'     => $request->street_address,
+            'town_city'          => $request->town_city,
+            'email'              => $request->email,
+            'phone'              => $request->phone
+        ];
+
+        try {
+            //validate
+            $this->orderForm->validate($formData);
+        }
+        catch (FormValidationException $e){
+            return Redirect::back()->withInput()->withErrors($e->getErrors());
+        }
+
         // 1 - them don hang
         $order = $this->orderService->Create($request->all());
 
