@@ -27,6 +27,15 @@ Route::prefix('cart')->group(function (){
     Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
     Route::get('delete',[\App\Http\Controllers\Front\CartController::class,'delete']);
     Route::get('destroy',[\App\Http\Controllers\Front\CartController::class,'destroy']);
+    Route::get('update',[\App\Http\Controllers\Front\CartController::class,'update']);
+});
+
+Route::prefix('check-out')->group(function (){
+    Route::get('',[\App\Http\Controllers\Front\CheckOutController::class,'index']);
+    Route::post('',[\App\Http\Controllers\Front\CheckOutController::class,'addOrder']);
+    Route::get('result',[\App\Http\Controllers\Front\CheckOutController::class,'orderResult']);
+    Route::get('success',[\App\Http\Controllers\Front\CheckOutController::class,'successTransaction'])->name('successPayment');
+    Route::get('cancel',[\App\Http\Controllers\Front\CheckOutController::class,'cancelTransaction'])->name('cancelPayment');
 });
 
 

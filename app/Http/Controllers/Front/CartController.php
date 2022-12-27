@@ -3,23 +3,26 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Services\Cart\CartService;
 use App\Services\Product\ProductService;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     private ProductService $productService;
-    public function __construct(ProductService $productService)
+    private CartService $cartService;
+
+    public function __construct(ProductService $productService,CartService $cartService)
     {
-        $this->productService=$productService;
+        $this->productService = $productService;
+        $this->cartService = $cartService;
     }
 
     public function index()
     {
-        $carts = Cart::content();
-        $total = Cart::total();
-        $subtotal = Cart::subtotal();
+        $carts = $this->cartService->getCartItems();
+        $total = $this->cartService->total();
+        $subtotal = $this->cartService->subtotal();
         return view('front.shop.cart',compact('carts','total','subtotal'));
     }
 
@@ -28,18 +31,9 @@ class CartController extends Controller
         if($request->ajax())
         {
             $product = $this->productService->Find($request->productId);
-            $response['cart']= Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty'=>1,
-                'price'=>$product->discount ?? $product->price,
-                'weight'=>$product->weight ?? 0,
-                'options'=>[
-                    'images' => $product->productImages,
-                ]
-            ]);
-            $response['count'] = Cart::count();
-            $response['total'] = Cart::total();
+            $response['cart'] = $this->cartService->addToCart($product);
+            $response['count'] = $this->cartService->count();
+            $response['total'] = $this->cartService->total();
             return $response;
         }
         return back();
@@ -49,10 +43,10 @@ class CartController extends Controller
     {
         if($request->ajax())
         {
-            $response['cart'] = Cart::remove($request->rowId);
-            $response['count'] = Cart::count();
-            $response['total'] = Cart::total();
-            $response['subtotal'] = Cart::subtotal();
+            $response['cart'] = $this->cartService->removeFromCart($request->rowId);
+            $response['count'] = $this->cartService->count();
+            $response['total'] = $this->cartService->total();
+            $response['subtotal'] = $this->cartService->subtotal();
             return $response;
         }
         return back();
@@ -60,6 +54,19 @@ class CartController extends Controller
 
     public function destroy()
     {
-        Cart::destroy();
+        $this->cartService->clearCartItems();
+    }
+
+    public function update(Request $request)
+    {
+        if($request->ajax())
+        {
+            $response['cart'] = $this->cartService->updateCart($request);
+            $response['count'] = $this->cartService->count();
+            $response['total'] = $this->cartService->total();
+            $response['subtotal'] = $this->cartService->subtotal();
+            return $response;
+        }
+        return back();
     }
 }

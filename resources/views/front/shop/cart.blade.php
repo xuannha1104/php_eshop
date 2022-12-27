@@ -37,12 +37,14 @@
                                 <th>Total</th>
                                 <th><i
                                         onclick="confirm('Are you sure to remove all Cart') === true ? destroycart() : ''"
-                                        style="cursor: pointer;" class="ti-close"></i></th>
+                                        style="cursor: pointer;" class="ti-close">
+                                    </i>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($carts as $cart)
-                                <tr data-rowId="{{$cart->rowId}}">
+                                <tr data-rowid="{{$cart->rowId}}">
                                     <td class="cart-pic first-row"><img src="front/img/products/{{$cart->options->images[0]->path}}" style="height: 170px;"></td>
                                     <td class="cart-title first-row">
                                         <h5>{{$cart->name}}</h5>
@@ -51,7 +53,7 @@
                                     <td class="qua-col first-row">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="{{$cart->qty}}">
+                                                <input type="text" value="{{$cart->qty}}" data-rowId="{{$cart->rowId}}">
                                             </div>
                                         </div>
                                     </td>
@@ -85,7 +87,7 @@
                                     <li class="subtotal">SubTotal <span>&dollar;{{$total}}</span></li>
                                     <li class="cart-total">Total <span>&dollar;{{$subtotal}}</span></li>
                                 </ul>
-                                <a href="check-out.html" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                <a href="./check-out" class="proceed-btn">PROCEED TO CHECK OUT</a>
                             </div>
                         </div>
                     </div>

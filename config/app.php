@@ -183,6 +183,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Paypal Service Providers...
+         */
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 

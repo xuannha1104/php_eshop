@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="./">
                             <img src="front/img/logo.png" height="25">
                         </a>
                     </div>
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="select-button">
                                     <a href="./cart" class="primary-btn view-card">View Card</a>
-                                    <a href="check-out.html" class="primary-btn checkout-btn">Check Out</a>
+                                    <a href="./check-out" class="primary-btn checkout-btn">Check Out</a>
                                 </div>
                             </div>
                         </li>
@@ -176,7 +176,7 @@
                         <ul class="dropdown">
                             <li><a href="blog-details.html">Blog Details</a></li>
                             <li><a href="./cart">Shopping Cart</a></li>
-                            <li><a href="check-out.html">CheckOut</a></li>
+                            <li><a href="./check-out">CheckOut</a></li>
                             <li><a href="faq.html">FAQ</a></li>
                             <li><a href="register.html">Register</a></li>
                             <li><a href="login.html">Login</a></li>
