@@ -8,8 +8,8 @@ class OrderForm extends BaseForm
     protected function rules()
     {
         return [
-            'first_name'         => 'required|alpha',
-            'last_name'          => 'required|alpha',
+            'first_name'         => 'required',
+            'last_name'          => 'required',
             'country'            => 'required',
             'street_address'     => 'required',
             'town_city'          => 'required',
@@ -22,9 +22,9 @@ class OrderForm extends BaseForm
     {
         return [
             'first_name'         => 'First Name is required.',
-            'first_name.alpha'   => 'First Name is only alphabet contains.',
+//            'first_name.alpha'   => 'First Name is only alphabet contains.',
             'last_name'          => 'Last Name is required.',
-            'last_name.alpha'    => 'Last Name is only alphabet contains.',
+//            'last_name.alpha'    => 'Last Name is only alphabet contains.',
             'country'            => 'Country field is required.',
             'street_address'     => 'Street Address is required.',
             'town_city'          => 'Town(city) field is required.',

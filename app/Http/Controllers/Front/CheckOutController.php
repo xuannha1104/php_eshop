@@ -7,6 +7,7 @@ use App\Services\Cart\CartService;
 use App\Services\Order\OrderService;
 use App\Services\OrderDetails\OrderDetailsService;
 use App\Services\PaypalPayment\PaypalPaymentService;
+use App\Ultities\Constants;
 use App\Ultities\Validation\FormValidationException;
 use App\Ultities\Validation\OrderForm;
 use Illuminate\Http\Request;
@@ -45,6 +46,7 @@ class CheckOutController extends Controller
 
     public  function addOrder(Request $request)
     {
+
         $formData = [
             'first_name'         => $request->first_name,
             'last_name'          => $request->last_name,
@@ -54,7 +56,6 @@ class CheckOutController extends Controller
             'email'              => $request->email,
             'phone'              => $request->phone
         ];
-
         try {
             //validate
             $this->orderForm->validate($formData);
@@ -64,7 +65,9 @@ class CheckOutController extends Controller
         }
 
         // 1 - them don hang
-        $order = $this->orderService->Create($request->all());
+        $data= $request->all();
+        $data['status'] = Constants::ORDER_STATUS_RECEIVED;
+        $order = $this->orderService->Create($data);
 
         // 2 - them chi tiet don hang
         $carts = $this->cartService->getCartItems();
@@ -95,9 +98,14 @@ class CheckOutController extends Controller
                 ->with('notification',"Success! You will pay on delivery. Please check your e-mail.");
         }
         elseif($request->payment_type == 'pay_Paypal') {
-            $response = $this->paypalPaymentService->processTransaction($order->orderId);
+            $response = $this->paypalPaymentService->processTransaction($order->id);
             if (isset($response['id']) && $response['id'] != null)
             {
+                // update order status
+                $this->orderService->Update([
+                    'status' => Constants::ORDER_STATUS_PAID,
+                ],$order->id);
+
                 // send email
                 $this->sendMail($order,$this->cartService->total(),$this->cartService->total());
 

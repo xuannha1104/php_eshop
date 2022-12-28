@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Services\Order\OrderService;
 use App\Services\User\UserService;
+use App\Ultities\Constants;
 use App\Ultities\Validation\FormValidationException;
 use App\Ultities\Validation\LoginForm;
 use App\Ultities\Validation\RegisterFrom;
@@ -15,15 +17,18 @@ use Illuminate\Support\Facades\Redirect;
 class AccountController extends Controller
 {
     private UserService $userService;
+    private OrderService $orderService;
 
     protected LoginForm $loginForm;
     protected RegisterFrom $registerFrom;
 
     public function __construct(UserService $userService,
+                                OrderService $orderService,
                                 LoginForm $loginForm,
                                 RegisterFrom $registerFrom)
     {
         $this->userService = $userService;
+        $this->orderService = $orderService;
         $this->loginForm = $loginForm;
         $this->registerFrom = $registerFrom;
     }
@@ -48,7 +53,8 @@ class AccountController extends Controller
         $remember = $request->remember;
         if(Auth::attempt($formData,$remember))
         {
-            return \redirect('./');
+//            return \redirect('./');
+            return redirect()->intended('');
         }
         else
         {
@@ -85,11 +91,23 @@ class AccountController extends Controller
         catch (FormValidationException $e){
             return Redirect::back()->withInput()->withErrors($e->getErrors());
         }
-        $formData['level'] = 2;
+        $formData['level'] = Constants::USER_LEVEL_CLIENT;
         $formData['password'] = Hash::make($formData['password']);
         $this->userService->Create($formData);
 
         return redirect('account/login')
                 ->with('notification','Register success! Please login to continue.');
+    }
+
+    public function myOrder()
+    {
+        $orders= $this->orderService->getOrdersByUserId(Auth::id());
+        return view('front.account.my-order.index',compact('orders'));
+    }
+
+    public function orderDetails($orderId)
+    {
+        $order = $this->orderService->Find($orderId);
+        return view('front.account.my-order.show',compact('order'));
     }
 }

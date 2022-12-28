@@ -185,6 +185,9 @@
                             <li><a href="blog-details.html">Blog Details</a></li>
                             <li><a href="./cart">Shopping Cart</a></li>
                             <li><a href="./check-out">CheckOut</a></li>
+                            @if(Auth::check())
+                                <li><a href="{{route('myOrderIndex')}}">My Orders</a></li>
+                            @endif
                             <li><a href="faq.html">FAQ</a></li>
                             <li><a href="register.html">Register</a></li>
                             <li><a href="{{route('login')}}">Login</a></li>

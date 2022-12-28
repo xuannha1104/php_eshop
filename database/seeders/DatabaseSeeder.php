@@ -26,6 +26,13 @@ class DatabaseSeeder extends Seeder
                 'avatar' => null,
                 'level' => 0,
                 'description' => null,
+
+                'company_name' => 'abc company',
+                'country' => 'viet nam',
+                'street_address' => '01 dong da, hai chau',
+                'postcode_zip' => '50000',
+                'town_city' => 'da nang',
+                'phone' => '0987654321',
             ],
             [
                 'id' => 2,
@@ -35,6 +42,13 @@ class DatabaseSeeder extends Seeder
                 'avatar' => null,
                 'level' => 0,
                 'description' => null,
+
+                'company_name' => 'abc company',
+                'country' => 'viet nam',
+                'street_address' => '01 dong da, hai chau',
+                'postcode_zip' => '50000',
+                'town_city' => 'da nang',
+                'phone' => '0987654321',
             ],
             [
                 'id' => 3,
@@ -43,7 +57,14 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'avatar' => 'avatar-0.png',
                 'level' => 1,
-                'description' => 'Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud amodo'
+                'description' => 'Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud amodo',
+
+                'company_name' => 'abc company',
+                'country' => 'viet nam',
+                'street_address' => '01 dong da, hai chau',
+                'postcode_zip' => '50000',
+                'town_city' => 'da nang',
+                'phone' => '0987654321',
             ],
             [
                 'id' => 4,
@@ -53,6 +74,13 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'avatar-1.png',
                 'level' => 1,
                 'description' => null,
+
+                'company_name' => 'abc company',
+                'country' => 'viet nam',
+                'street_address' => '01 dong da, hai chau',
+                'postcode_zip' => '50000',
+                'town_city' => 'da nang',
+                'phone' => '0987654321',
             ],
             [
                 'id' => 5,
@@ -62,6 +90,13 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'avatar-2.png',
                 'level' => 1,
                 'description' => null,
+
+                'company_name' => 'abc company',
+                'country' => 'viet nam',
+                'street_address' => '01 dong da, hai chau',
+                'postcode_zip' => '50000',
+                'town_city' => 'da nang',
+                'phone' => '0987654321',
             ],
         ]);
 

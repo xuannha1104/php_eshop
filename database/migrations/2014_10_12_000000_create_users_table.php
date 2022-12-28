@@ -25,6 +25,13 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('level');
             $table->text('description')->nullable();
 
+            $table->text('company_name')->nullable();
+            $table->text('country')->nullable();
+            $table->text('street_address')->nullable();
+            $table->text('postcode_zip')->nullable();
+            $table->text('town_city')->nullable();
+            $table->text('phone')->nullable();
+
             $table->timestamps();
         });
     }

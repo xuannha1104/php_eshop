@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckMemberLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,11 @@ Route::prefix('account')->group(function (){
     Route::get('login',[\App\Http\Controllers\Front\AccountController::class,'login'])->name('login');
     Route::post('login',[\App\Http\Controllers\Front\AccountController::class,'checkLogin'])->name('checkLogin');
     Route::get('logout',[\App\Http\Controllers\Front\AccountController::class,'logout'])->name('logout');
+});
+
+Route::group(['prefix'=>'my-order','middleware' => 'CheckMemberLogin'],function (){
+    Route::get('',[\App\Http\Controllers\Front\AccountController::class,'myOrder'])->name('myOrderIndex');
+    Route::get('{orderId}',[\App\Http\Controllers\Front\AccountController::class,'orderDetails'])->name('orderDetails');
 });
 
 

@@ -32,6 +32,7 @@
                             </div>
                             <h4>Billing Details</h4>
                             <div class="row">
+                                <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id ?? ''}}">
                                 <div class="col-lg-6">
                                     <label for="firstname">First Name <span>*</span></label>
                                     @if (count($errors) > 0)
@@ -43,7 +44,7 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="firstname" name="first_name">
+                                    <input type="text"id="firstname" name="first_name" value="{{Auth::user()->name ?? ''}}">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="lastname">Last Name <span>*</span></label>
@@ -60,7 +61,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="cpny">Company Name</label>
-                                    <input type="text"id="cpny" name="company_name">
+                                    <input type="text"id="cpny" name="company_name" value="{{Auth::user()->company_name ?? ''}}">
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="country">Country<span>*</span></label>
@@ -73,7 +74,7 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="country" name="country">
+                                    <input type="text"id="country" name="country" value="{{Auth::user()->country ?? ''}}">
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="address">Street Address<span>*</span></label>
@@ -86,11 +87,11 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="address" name="street_address" class="street-first">
+                                    <input type="text"id="address" name="street_address" class="street-first" value="{{Auth::user()->street_address ?? ''}}">
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="zip">PostCode / ZIP (optional)</label>
-                                    <input type="text"id="zip" name="postcode_zip">
+                                    <input type="text"id="zip" name="postcode_zip" value="{{Auth::user()->postcode_zip ?? ''}}">
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="town">Town / City<span>*</span></label>
@@ -103,7 +104,7 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="town" name="town_city">
+                                    <input type="text"id="town" name="town_city" value="{{Auth::user()->town_city ?? ''}}">
 
                                 </div>
                                 <div class="col-lg-6">
@@ -117,7 +118,7 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="email" name="email">
+                                    <input type="text"id="email" name="email" value="{{Auth::user()->email ?? ''}}">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="phone">Phone Number <span>*</span></label>
@@ -130,7 +131,7 @@
                                             </ul>
                                         @endif
                                     @endif
-                                    <input type="text"id="phone" name="phone">
+                                    <input type="text"id="phone" name="phone" value="{{Auth::user()->phone ?? ''}}">
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="create-item">
