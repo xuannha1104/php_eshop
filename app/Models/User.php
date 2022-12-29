@@ -23,7 +23,16 @@ class User extends Authenticatable
         'password',
         'avatar',
         'level',
-        'description'
+        'description',
+
+        'company_name',
+        'country',
+        'street_address',
+        'postcode_zip',
+        'town_city',
+        'phone'
+
+
 
     ];
 

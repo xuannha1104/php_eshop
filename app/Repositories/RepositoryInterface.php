@@ -9,4 +9,6 @@ interface RepositoryInterface
     public function Create(array $data);
     public function Update(array $data, $id);
     public  function Delete($id);
+
+    public function searchAndPaginate($searchBy,$keyWord,$perPage = 5);
 }

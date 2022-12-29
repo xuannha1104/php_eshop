@@ -43,6 +43,9 @@ use App\Ultities\Validation\BaseForm;
 use App\Ultities\Validation\LoginForm;
 use App\Ultities\Validation\OrderForm;
 use App\Ultities\Validation\RegisterFrom;
+use App\Ultities\Validation\UserCreateFrom;
+use App\Ultities\Validation\UserEditFormNoPassword;
+use App\Ultities\Validation\UserEditFrom;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -155,6 +158,17 @@ class AppServiceProvider extends ServiceProvider
         // Order Form Validation
         $this->app->singleton(
             BaseForm::class,OrderForm::class
+        );
+
+        // User Form Validation
+        $this->app->singleton(
+            BaseForm::class,UserCreateFrom::class
+        );
+        $this->app->singleton(
+            BaseForm::class,UserEditFrom::class
+        );
+        $this->app->singleton(
+            BaseForm::class,UserEditFormNoPassword::class
         );
 
         // User

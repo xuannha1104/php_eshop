@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Front (Client) Route
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']) ;
 
 Route::prefix('shop')->group(function (){
@@ -51,5 +52,55 @@ Route::group(['prefix'=>'my-order','middleware' => 'CheckMemberLogin'],function 
     Route::get('',[\App\Http\Controllers\Front\AccountController::class,'myOrder'])->name('myOrderIndex');
     Route::get('{orderId}',[\App\Http\Controllers\Front\AccountController::class,'orderDetails'])->name('orderDetails');
 });
+
+// Dashboard (Admin) Route
+Route::prefix('admin')->group(function (){
+    Route::prefix('user')->middleware('CheckAdminLogin')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\UserController::class,'index'])->name('UserManager');
+        Route::get('{id}',[\App\Http\Controllers\Admin\UserController::class,'show']);
+        Route::delete('id}',[\App\Http\Controllers\Admin\UserController::class,'destroy']);
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\UserController::class,'edit']);
+        Route::put('edit/{id}',[\App\Http\Controllers\Admin\UserController::class,'update']);
+    });
+    Route::get('user-create',[\App\Http\Controllers\Admin\UserController::class,'create'])->middleware('CheckAdminLogin');
+    Route::post('user-create',[\App\Http\Controllers\Admin\UserController::class,'store'])->middleware('CheckAdminLogin');
+
+    Route::prefix('login')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\HomeController::class,'getLogin']);
+        Route::post('',[\App\Http\Controllers\Admin\HomeController::class,'login'])->name('adminLogin');
+    });
+    Route::get('logout',[\App\Http\Controllers\Admin\HomeController::class,'logout']);
+
+    Route::prefix('brand')->middleware('CheckAdminLogin')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\BrandController::class,'index'])->name('BrandManager');
+        Route::get('create',[\App\Http\Controllers\Admin\BrandController::class,'create'])->name('BrandCreate');
+        Route::post('create',[\App\Http\Controllers\Admin\BrandController::class,'store']);
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\BrandController::class,'edit'])->name('BrandEdit');
+        Route::put('edit/{id}',[\App\Http\Controllers\Admin\BrandController::class,'update']);
+        Route::delete('delete/{id}',[\App\Http\Controllers\Admin\BrandController::class,'destroy'])->name('BrandDelete');
+    });
+
+    Route::prefix('category')->middleware('CheckAdminLogin')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\ProductCategoryController::class,'index'])->name('CategoryManager');
+        Route::get('create',[\App\Http\Controllers\Admin\ProductCategoryController::class,'create'])->name('CategoryCreate');
+        Route::post('create',[\App\Http\Controllers\Admin\ProductCategoryController::class,'store']);
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'edit'])->name('CategoryEdit');
+        Route::put('edit/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'update']);
+        Route::delete('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'destroy'])->name('CategoryDelete');
+    });
+
+    Route::prefix('product')->middleware('CheckAdminLogin')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\ProductController::class,'index'])->name('ProductManager');
+        Route::get('create',[\App\Http\Controllers\Admin\ProductController::class,'create'])->name('ProductCreate');
+        Route::post('create',[\App\Http\Controllers\Admin\ProductController::class,'store']);
+        Route::get('detail/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('ProductDetails');
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('ProductEdit');
+        Route::put('edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update']);
+        Route::delete('delete/{id}',[\App\Http\Controllers\Admin\ProductController::class,'destroy'])->name('ProductDelete');
+    });
+});
+
+
+
 
 
