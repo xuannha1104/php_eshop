@@ -17,6 +17,10 @@ use App\Repositories\ProductCategoryRepository\ProductCategoryRepositoryInterfac
 use App\Repositories\ProductComment\ProductCommentRepository;
 use App\Repositories\ProductComment\ProductCommentRepositoryInterface;
 
+use App\Repositories\ProductDetails\ProductDetailRepositoryInterface;
+use App\Repositories\ProductDetails\ProductDetailsRepository;
+use App\Repositories\ProductImage\ProductImageRepository;
+use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Blog\BlogService;
@@ -37,11 +41,16 @@ use App\Services\ProductCategoryService\ProductCategoryService;
 use App\Services\ProductCategoryService\ProductCategoryServiceInterface;
 use App\Services\ProductComment\ProductCommentService;
 use App\Services\ProductComment\ProductCommentServiceInterface;
+use App\Services\ProductDetails\ProductDetailsService;
+use App\Services\ProductDetails\ProductDetailsServiceInterface;
+use App\Services\ProductImage\ProductImageService;
+use App\Services\ProductImage\ProductImageServiceInterface;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use App\Ultities\Validation\BaseForm;
 use App\Ultities\Validation\LoginForm;
 use App\Ultities\Validation\OrderForm;
+use App\Ultities\Validation\ProductCreateForm;
 use App\Ultities\Validation\RegisterFrom;
 use App\Ultities\Validation\UserCreateFrom;
 use App\Ultities\Validation\UserEditFormNoPassword;
@@ -134,6 +143,29 @@ class AppServiceProvider extends ServiceProvider
             OrderDetailsService::class
         );
 
+        // ProductDetails
+        $this->app->singleton(
+            ProductDetailRepositoryInterface::class,
+            ProductDetailsRepository::class
+        );
+
+        $this->app->singleton(
+            ProductDetailsServiceInterface::class,
+            ProductDetailsService::class
+        );
+
+        // ProductImages
+        $this->app->singleton(
+            ProductImageRepositoryInterface::class,
+            ProductImageRepository::class
+        );
+
+        $this->app->singleton(
+            ProductImageServiceInterface::class,
+            ProductImageService::class
+        );
+
+
         // Cart Service
         $this->app->singleton(
             CartServiceInterface::class,
@@ -169,6 +201,11 @@ class AppServiceProvider extends ServiceProvider
         );
         $this->app->singleton(
             BaseForm::class,UserEditFormNoPassword::class
+        );
+
+        //product From
+        $this->app->singleton(
+            BaseForm::class,ProductCreateForm::class
         );
 
         // User

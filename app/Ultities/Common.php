@@ -18,4 +18,12 @@ class Common
 
         return $file_name;
     }
+    public static function getRandomFileName($fileName)
+    {
+        $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+        $file_name_without_extension = Str::replaceLast('.'.$extension,'',$fileName);
+        $str_time_now = now()->format('ymd_his');
+        return Str::slug($file_name_without_extension . '_' . uniqid() . '_' . $str_time_now) . '.' . $extension;
+
+    }
 }

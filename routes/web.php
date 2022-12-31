@@ -92,11 +92,31 @@ Route::prefix('admin')->group(function (){
     Route::prefix('product')->middleware('CheckAdminLogin')->group(function (){
         Route::get('',[\App\Http\Controllers\Admin\ProductController::class,'index'])->name('ProductManager');
         Route::get('create',[\App\Http\Controllers\Admin\ProductController::class,'create'])->name('ProductCreate');
-        Route::post('create',[\App\Http\Controllers\Admin\ProductController::class,'store']);
-        Route::get('detail/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('ProductDetails');
+        Route::post('create',[\App\Http\Controllers\Admin\ProductController::class,'store'])->name('ProductStore');
+        Route::get('detail/{id}',[\App\Http\Controllers\Admin\ProductController::class,'show'])->name('ProductDetails');
         Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('ProductEdit');
         Route::put('edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update']);
         Route::delete('delete/{id}',[\App\Http\Controllers\Admin\ProductController::class,'destroy'])->name('ProductDelete');
+
+        Route::get('detail-info/{productId}',[\App\Http\Controllers\Admin\ProductController::class,'showDetails'])->name('ProductDetailsManager');
+        Route::get('detail-info-create/{productId}',[\App\Http\Controllers\Admin\ProductController::class,'createDetails'])->name('ProductDetailsCreate');
+        Route::post('detail-info-create/{productId}',[\App\Http\Controllers\Admin\ProductController::class,'storeDetails'])->name('ProductDetailsStore');
+        Route::get('detail-info-edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'editDetails'])->name('ProductDetailsEdit');
+        Route::put('detail-info-edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'updateDetails'])->name('ProductDetailsUpdate');;
+        Route::delete('detail-info-delete/{id}',[\App\Http\Controllers\Admin\ProductController::class,'destroyDetails'])->name('ProductDetailsDelete');
+
+        Route::get('images/{productId}',[\App\Http\Controllers\Admin\ProductController::class,'imagesIndex'])->name('ProductImagesManager');
+        Route::put('images/{productId}',[\App\Http\Controllers\Admin\ProductController::class,'imagesStore'])->name('ProductImagesStore');
+        Route::get('images-list',[\App\Http\Controllers\Admin\ProductController::class,'imageList']);
+        Route::post('images-upload',[\App\Http\Controllers\Admin\ProductController::class,'imageUpload']);
+        Route::delete('images-delete',[\App\Http\Controllers\Admin\ProductController::class,'imageDelete']);
+
+    });
+
+    Route::prefix('order')->middleware('CheckAdminLogin')->group(function ()
+    {
+        Route::get('',[\App\Http\Controllers\Admin\OrderController::class,'index'])->name('OrderManager');
+        Route::get('/{id}',[\App\Http\Controllers\Admin\OrderController::class,'show'])->name('OrderDetails');
     });
 });
 

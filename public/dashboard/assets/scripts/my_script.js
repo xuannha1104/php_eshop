@@ -17,3 +17,6 @@ $(document).ready(function () {
         $(this).siblings('.image').click();
     });
 });
+
+
+
