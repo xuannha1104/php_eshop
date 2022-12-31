@@ -119,8 +119,3 @@ Route::prefix('admin')->group(function (){
         Route::get('/{id}',[\App\Http\Controllers\Admin\OrderController::class,'show'])->name('OrderDetails');
     });
 });
-
-
-
-
-
