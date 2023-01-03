@@ -12,7 +12,8 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Css Styles -->
     <link rel="stylesheet" href="front/css/tailwind.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
@@ -52,13 +53,26 @@
             </div>
             <div class="ht-right">
                 @if(Auth::check())
-                    <a href="{{route('logout')}}" class="login-panel">
-                        <i class="fa fa-user"></i>
-                        {{Auth::user()->name}} - Log Out
-                    </a>
+                    <div class="login-panel">
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                {{Auth::user()->name}}
+                            </button>
+                            <ul class="dropdown-menu">
+                                @if(Auth::user()->level = \App\Ultities\Constants::USER_LEVEL_HOST |
+                                    Auth::user()->level = \App\Ultities\Constants::USER_LEVEL_ADMIN)
+                                    <li><a class="dropdown-item" href="{{route('UserManager')}}">Manager</a></li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{route('myOrderIndex')}}">My Order</a></li>
+                                <li><a class="dropdown-item" href="{{route('logout')}}">Log Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 @else
                     <a href="{{route('login')}}" class="login-panel">
-                        <i class="fa fa-user">Login</i>
+                        <i class="fa fa-user"></i>
+                        Login
                     </a>
                 @endif
 
